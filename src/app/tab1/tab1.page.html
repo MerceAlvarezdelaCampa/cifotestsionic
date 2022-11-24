@@ -7,5 +7,22 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div>
+
+    <input type="text" id="test" />
+
+    <h3>El resultado es: {{result}}</h3>
+
+    <div>
+      <ion-button (click)="setResult()">Calcula Promise</ion-button>
+    </div>
+    <div>
+      <ion-button (click)="setResultAsync()">Calcula Promise Async</ion-button>
+    </div>
+    <div>
+      <ion-button (click)="setResultObservable()">Calcula Observable</ion-button>
+    </div>
+
+  </div>
+
 </ion-content>
