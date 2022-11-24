@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "samplecifo": {
+      "hosting": {
+        "app": [
+          "samplecifo"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "samplecifo"
+  }
+}
