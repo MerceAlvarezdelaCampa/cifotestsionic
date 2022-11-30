@@ -23,8 +23,12 @@ export class Tab2Page {
       // make background of WebView transparent
       // note: if you are using ionic this might not be enough, check below
       BarcodeScanner.hideBackground();
+
+      document.querySelector('body')!.classList.add('scanner-active');
     
       const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
+
+      document.querySelector('body')!.classList.remove('scanner-active');
     
       // if the result has content
       if (result.hasContent) {
