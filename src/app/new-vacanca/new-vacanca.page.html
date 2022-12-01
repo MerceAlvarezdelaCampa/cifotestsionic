@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>new-vacanca</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h2>Afegir nova Vacanca</h2>
+
+  <form [formGroup]="newForm" id="newForm" name="newForm">
+
+      <ion-item>
+          <ion-label position="floating" for="nom">*Nom</ion-label>
+          <ion-input #formControlNom id="nom" formControlName="nom"></ion-input>
+      </ion-item>
+      <div *ngIf="stateObject.submitted && !newForm.get('nom')?.valid">
+          <span  style="color: red">Este campo es obligatorio</span>
+      </div>
+
+      <ion-item>
+          <ion-label position="floating" for="preu">*Preu</ion-label>
+          <ion-input #formControlPreu id="preu" formControlName="preu"></ion-input>
+      </ion-item>
+      <div *ngIf="stateObject.submitted && !newForm.get('preu')?.valid">
+        <span style="color: red">Este campo es obligatorio</span>
+      </div>
+
+      <ion-item>
+          <ion-label position="floating" for="pais">Pais</ion-label>
+          <ion-input id="pais"  formControlName="pais"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea placeholder="Descripció" [autoGrow]="true">
+        </ion-textarea>
+      </ion-item>
+
+      <ion-button (click)="addVacanca()">Afegir</ion-button>
+
+  </form>
+
+</ion-content>

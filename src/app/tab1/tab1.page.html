@@ -7,5 +7,16 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <h2>Llistat</h2>
+
+  <div *ngFor="let vacanca of vacances">
+      <app-vacanca-card [vacanca]="vacanca" (onButtonClicked)="showDetails(vacanca)"></app-vacanca-card>
+  </div>
+
+  <ion-fab>
+    <ion-fab-button routerLink="/new-vacanca">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
 </ion-content>

@@ -33,4 +33,9 @@ export class AuthService {
 	logout() {
 		return signOut(this.auth);
 	}
+
+	getLoggedUserUid(): string {
+		return JSON.parse(window.localStorage.getItem('user')!).uid;
+	}
+
 }

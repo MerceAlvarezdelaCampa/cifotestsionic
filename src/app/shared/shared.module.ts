@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './components/header/header.component'
+import { VacancaCardComponent } from './components/vacanca-card/vacanca-card.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    VacancaCardComponent
   ],
   imports: [
     CommonModule,
@@ -13,7 +15,8 @@ import { HeaderComponent } from './components/header/header.component'
   ],
   exports: [
     IonicModule,
-    HeaderComponent
+    HeaderComponent,
+    VacancaCardComponent
   ]
 })
 export class SharedModule { }
