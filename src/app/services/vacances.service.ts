@@ -1,18 +1,33 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, doc, docData, Firestore, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Vacanca } from '../model/vacanca.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VacancesService {
 
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore,
+    private authService: AuthService) { }
 
-  getVacances(): Observable<Vacanca[]> {
-    const VacancesRef = collection(this.firestore, 'vacances');
-    return collectionData(VacancesRef, { idField: 'id'}) as Observable<Vacanca[]>;
+  async getVacances(): Promise<Vacanca[]> {
+    const userid = await this.authService.getLoggedUserUid();
+    return new Promise((resolve, reject) => {
+      const q = query(collection(this.firestore, "vacances"), where("user", "==", userid));
+      getDocs(q).then((querySnapshot) => {
+        const vacances: Vacanca[] = [];
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+          const v: Vacanca = {
+            ...doc.data() as Vacanca, id: doc.id
+          }
+          vacances.push(v)
+        });
+        resolve(vacances);
+      })
+    })
   }
 
   getVacancaById(id: string): Observable<Vacanca> {

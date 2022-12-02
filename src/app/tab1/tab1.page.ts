@@ -13,10 +13,11 @@ export class Tab1Page {
 
   vacances: Vacanca[] = []
 
-  constructor(private vacancesService: VacancesService) {}
+  constructor(private vacancesService: VacancesService,
+    private router: Router) {}
 
   ionViewWillEnter() {
-    this.vacancesService.getVacances().subscribe((res) => {
+    this.vacancesService.getVacances().then((res) => {
       this.vacances = res;
       console.log(this.vacances);      
     });
@@ -24,6 +25,10 @@ export class Tab1Page {
 
   showDetails(vacanca: Vacanca) {
     console.log(vacanca);    
+  }
+
+  goToNew() {
+    this.router.navigate(['/new-vacanca'], { replaceUrl: true });
   }
 
 }

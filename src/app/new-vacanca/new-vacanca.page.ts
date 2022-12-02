@@ -17,29 +17,33 @@ export class NewVacancaPage {
     hasErrors: true
   }
 
-  newForm: FormGroup;
+  newForm!: FormGroup;
 
   constructor(
     private vacancesService: VacancesService,
     private router: Router,
     private authService: AuthService) {
-      this.newForm = new FormGroup({
-        'nom': new FormControl(null, [Validators.required, Validators.minLength(5)]),
-        'preu': new FormControl(null, [Validators.required]),
-        'pais': new FormControl(null, []),
-        'descripcio': new FormControl(null, [])
-      });  
     }
 
-  addVacanca() {
+  ionViewWillEnter() {
+    this.newForm = new FormGroup({
+      'nom': new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      'preu': new FormControl(null, [Validators.required]),
+      'pais': new FormControl(null, []),
+      'descripcio': new FormControl(null, [])
+    });  
+  }
+
+  async addVacanca() {
     this.stateObject.submitted = true;
+    const userid = await this.authService.getLoggedUserUid();
     if (this.newForm.valid) {
       const v: Vacanca = {} as unknown as Vacanca;
       v.nom = this.newForm.get('nom')?.value;
       v.descripcio = this.newForm.get('descripcio')?.value;
       v.pais = this.newForm.get('pais')?.value;
       v.preu = this.newForm.get('preu')?.value;
-      v.user = this.authService.getLoggedUserUid();
+      v.user = userid;
       this.vacancesService.addVacanca(v);
       this.stateObject.submitted = false;
       this.router.navigate(['/tabs/tab1']);

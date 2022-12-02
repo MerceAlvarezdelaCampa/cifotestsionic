@@ -1,4 +1,5 @@
 export interface Vacanca {
+    id?: string;
     nom: string;
     descripcio: string;
     preu: number;

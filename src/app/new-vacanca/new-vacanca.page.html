@@ -8,7 +8,7 @@
 
   <h2>Afegir nova Vacanca</h2>
 
-  <form [formGroup]="newForm" id="newForm" name="newForm">
+  <form *ngIf="newForm" [formGroup]="newForm" id="newForm" name="newForm">
 
       <ion-item>
           <ion-label position="floating" for="nom">*Nom</ion-label>

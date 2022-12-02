@@ -1,7 +1,6 @@
-<div style="border: 1px solid black; padding: 20px 50px; background-color: bisque; margin-bottom: 50px; width: 80%">
-    <h1>Vacanca</h1>
-    <h2>{{vacanca.nom}}</h2>
-    <h3>{{vacanca.preu}}</h3>
+<div style="border: 1px solid black; padding: 10px 10px; background-color: rgb(79, 79, 79); margin-bottom: 5px; width: 100%">
+    <h3>{{vacanca.nom}}</h3>
+    <h4>{{vacanca.preu}}</h4>
     <div>{{vacanca.descripcio}}</div>
     <button *ngIf="vacanca" (click)="clicked()">Save!</button>
 </div>
