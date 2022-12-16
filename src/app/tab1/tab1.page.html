@@ -10,7 +10,7 @@
   <h2>Llistat</h2>
 
   <div *ngFor="let vacanca of vacances">
-      <app-vacanca-card [vacanca]="vacanca" (onButtonClicked)="showDetails(vacanca)"></app-vacanca-card>
+      <app-vacanca-card [vacanca]="vacanca" (buttonClicked)="showDetails($event)"></app-vacanca-card>
   </div>
 
   <ion-fab>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ParamsDetail } from '../model/state.models';
 import { Vacanca } from '../model/vacanca.model';
 import { AuthService } from '../services/auth.service';
 import { VacancesService } from '../services/vacances.service';
@@ -24,8 +25,14 @@ export class Tab1Page {
   }
 
   showDetails(vacanca: Vacanca) {
-    console.log(vacanca);    
-  }
+      const params: ParamsDetail = {
+        id: vacanca.id!
+      }
+      this.vacancesService.setParamsDetail(params);
+//    this.router.navigate([`/detail-vacanca/${vacanca.id}`]);
+//    this.router.navigate([`/detail-vacanca`, {state: {data: vacanca}}]);
+      this.router.navigate([`/detail-vacanca`]);
+}
 
   goToNew() {
     this.router.navigate(['/new-vacanca'], { replaceUrl: true });
