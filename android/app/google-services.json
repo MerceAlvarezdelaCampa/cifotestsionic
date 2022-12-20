@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1055414157140",
+    "project_id": "samplecifo",
+    "storage_bucket": "samplecifo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055414157140:android:f20dfc7737d08afdb512c1",
+        "android_client_info": {
+          "package_name": "com.jrbistuer.samplecifo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055414157140-baclcb1nn2td8i5joencm14upaq55lac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtUZ-7Zu5QTitnFXytV5TJC-NEutARLfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055414157140-baclcb1nn2td8i5joencm14upaq55lac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

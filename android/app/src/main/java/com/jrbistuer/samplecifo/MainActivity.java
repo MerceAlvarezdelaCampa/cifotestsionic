@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.jrbistuer.samplecifo;
 
 import com.getcapacitor.BridgeActivity;
 
