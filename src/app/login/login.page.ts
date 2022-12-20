@@ -55,7 +55,8 @@ export class LoginPage implements OnInit {
 			const user: User = {
 				email: this.credentials!.get('email')?.value,
 				id: userid,
-				geolocation: JSON.stringify(coordinates)
+				geolocation: JSON.stringify(coordinates),
+				pushtoken: ''
 			};
 			this.userService.setUserToFireStore(user);
 			this.router.navigateByUrl('/tabs', { replaceUrl: true });
