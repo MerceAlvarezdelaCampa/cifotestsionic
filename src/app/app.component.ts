@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { TranslateService } from '@ngx-translate/core';
+import { I18nService } from './services/i18n.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +10,11 @@ import { PushNotifications } from '@capacitor/push-notifications';
 })
 export class AppComponent {
 
-  constructor() {
-    this.registerNotifications();
-    this.addListeners();
-    this.getDeliveredNotifications();
+  constructor(private i18nService: I18nService) {
+    this.i18nService.setDefaultLanguage();
+    // this.registerNotifications();
+    // this.addListeners();
+    // this.getDeliveredNotifications();
   }
 
   async addListeners() {

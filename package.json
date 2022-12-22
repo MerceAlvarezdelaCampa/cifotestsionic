@@ -35,6 +35,8 @@
     "@ionic-native/barcode-scanner": "5.36.0",
     "@ionic/angular": "6.3.4",
     "@ionic/storage-angular": "3.0.6",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "chart.js": "3.9.1",
     "chartjs-plugin-datalabels": "2.1.0",
     "ionicons": "6.0.3",

@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { ParamsDetail } from '../model/state.models';
 import { Vacanca } from '../model/vacanca.model';
 import { AuthService } from '../services/auth.service';
+import { I18nService } from '../services/i18n.service';
 import { VacancesService } from '../services/vacances.service';
 
 @Component({
@@ -10,12 +13,22 @@ import { VacancesService } from '../services/vacances.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnDestroy {
 
   vacances: Vacanca[] = []
+  title: string = '';
+
+  // subscription: Subscription;
 
   constructor(private vacancesService: VacancesService,
-    private router: Router) {}
+    private router: Router,
+    private translateService: TranslateService,
+    private i18nService: I18nService) {
+      this.title = this.translateService.instant('list_vacanca');
+      // this.subscription = this.translateService.get('list_vacanca').subscribe((text) => {
+      //   this.title = text;
+      // })
+    }
 
   ionViewWillEnter() {
     this.vacancesService.getVacances().then((res) => {
@@ -36,6 +49,17 @@ export class Tab1Page {
 
   goToNew() {
     this.router.navigate(['/new-vacanca'], { replaceUrl: true });
+  }
+
+  handleChange(lng: any) {
+    console.log(lng);
+    this.i18nService.setLanguage(lng.detail.value).subscribe(() => {
+      this.title = this.translateService.instant('list_vacanca');
+    });
+  }
+
+  ngOnDestroy(): void {
+    // this.subscription.unsubscribe();
   }
 
 }

@@ -7,7 +7,18 @@
     </ion-toolbar>
   </ion-header>
 
-  <h2>Llistat</h2>
+  <ion-list>
+    <ion-item>
+      <ion-select placeholder="Select language"
+      (ionChange)="handleChange($event)">
+        <ion-select-option value="es">Castellano</ion-select-option>
+        <ion-select-option value="ca">Català</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <h2>{{ 'list_vacanca' | translate }}</h2>
+  <h2>{{title}}</h2>
 
   <div *ngFor="let vacanca of vacances">
       <app-vacanca-card [vacanca]="vacanca" (buttonClicked)="showDetails($event)"></app-vacanca-card>
