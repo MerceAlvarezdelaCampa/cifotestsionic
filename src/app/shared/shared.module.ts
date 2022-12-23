@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './components/header/header.component'
 import { VacancaCardComponent } from './components/vacanca-card/vacanca-card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { VacancaCardComponent } from './components/vacanca-card/vacanca-card.com
   exports: [
     IonicModule,
     HeaderComponent,
-    VacancaCardComponent
+    VacancaCardComponent,
+    TranslateModule
   ]
 })
 export class SharedModule { }
