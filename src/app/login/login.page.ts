@@ -41,28 +41,37 @@ export class LoginPage implements OnInit {
 	}
 
 	async register() {
-		const loading = await this.loadingController.create();
-		await loading.present();
 
-		const user = await this.authService.register(this.credentials!.value);
-		await loading.dismiss();
+		try {
+			const loading = await this.loadingController.create();
+			await loading.present();
+	
+			const user = await this.authService.register(this.credentials!.value);
+			await loading.dismiss();
+	
+			if (user) {
+				const coordinates = await Geolocation.getCurrentPosition();
+				console.log('Current position:', coordinates);		  
+				const userid = await this.authService.getLoggedUserUid();
+				console.log('user id:', userid);		  
+				const user: User = {
+					email: this.credentials!.get('email')?.value,
+					id: userid,
+					geolocation: JSON.stringify(coordinates),
+					pushtoken: ''
+				};
+				this.userService.setUserToFireStore(user).then((data) => {
+					console.log(data);
+				});
+				this.router.navigateByUrl('/tabs', { replaceUrl: true });
+			} else {
+				this.showAlert('Registration failed', 'Please try again!');
+			}
 
-		if (user) {
-			const coordinates = await Geolocation.getCurrentPosition();
-			console.log('Current position:', coordinates);		  
-			const userid = await this.authService.getLoggedUserUid();
-			console.log('user id:', userid);		  
-			const user: User = {
-				email: this.credentials!.get('email')?.value,
-				id: userid,
-				geolocation: JSON.stringify(coordinates),
-				pushtoken: ''
-			};
-			this.userService.setUserToFireStore(user);
-			this.router.navigateByUrl('/tabs', { replaceUrl: true });
-		} else {
-			this.showAlert('Registration failed', 'Please try again!');
+		} catch (err) {
+			console.log(err);
 		}
+
 	}
 
 	async login() {

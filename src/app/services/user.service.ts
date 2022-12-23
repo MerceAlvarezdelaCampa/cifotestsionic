@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, doc, docData, Firestore, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../model/user.model';
 import { AuthService } from './auth.service';
@@ -13,33 +13,36 @@ export class UserService {
     private authService: AuthService) { }
 
   setUserToFireStore(user: User) {
-    const UsersRef = collection(this.firestore, 'Users');
+    const UsersRef = collection(this.firestore, 'users');
     return addDoc(UsersRef, user);
   }
 
-  getUser(id: string) {
-    const UserDocRef = doc(this.firestore, `Users/${id}`);
-    return docData(UserDocRef, { idField: 'id' }) as Observable<User>;
+  async getUser(): Promise<User> {
+    const userid = await this.authService.getLoggedUserUid();
+    return new Promise((resolve, reject) => {
+      const q = query(collection(this.firestore, "users"), where("id", "==", userid));
+      getDocs(q).then((querySnapshot) => {
+        let user: User = {} as User; 
+        querySnapshot.forEach((doc) => {
+          user = doc.data() as User;
+          user = {...user, fid: doc.id};
+        });
+        resolve(user);
+      });
+    })
   }
 
-  updateUser(user: User, id: string) {
-    const UserDocRef = doc(this.firestore, `Users/${id}`);
-    return updateDoc(UserDocRef, {
-      email: user.email,
-      id: user.id,
-      geolocation: user.geolocation,
-      pushtoken: user.pushtoken
-    });
+  async updateUser(user: User) {
+    const fUser: User = await this.getUser();
+    const docRef = doc(this.firestore, "users", fUser.fid!);
+    console.log(docRef);     
+    return setDoc(docRef, user);
   }
 
   async updateUserToken(token: string) {
-    const userId: string = await this.authService.getLoggedUserUid();
-    console.log('METAG userid', userId);
-    this.getUser(userId).subscribe((user: User) => {
-      console.log('METAG user', user);
+    this.getUser().then((user: User) => {
       const newUser: User = {...user, pushtoken: token};
-      console.log('METAG newUser', newUser);
-      this.updateUser(user, userId).then((data) => {
+      this.updateUser(newUser).then((data) => {
         console.log('METAG ok', data);
       }, (err) => {
         console.log('METAG ko', err);

@@ -6,6 +6,7 @@ import {
 	signOut,
 	authState
 } from '@angular/fire/auth';
+import { NavController } from '@ionic/angular';
 import { from, Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
@@ -13,7 +14,8 @@ import { switchMap, take } from 'rxjs/operators';
 	providedIn: 'root'
 })
 export class AuthService {
-	constructor(private auth: Auth) {}
+	constructor(private auth: Auth,
+		private nav: NavController) {}
 
 	async register({ email, password }: any) {
 		try {
@@ -34,7 +36,9 @@ export class AuthService {
 	}
 
 	logout() {
-		return signOut(this.auth);
+		signOut(this.auth).then(() => {
+			window.location.reload();
+		});
 	}
 
 	async getLoggedUserUid(): Promise<string> {
